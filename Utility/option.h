@@ -5,6 +5,7 @@
 #include <string>
 
 using std::string;
+#include "value.h"
 namespace hobert
 {
 	namespace utility
@@ -29,9 +30,11 @@ namespace hobert
 			void parse(int argc, char* argv[]);//解析，argc:命令行参数个数(参数间用空格隔开) argv:指向字符串数组的指针
 			void show()const;
 			bool has(const string& opt)const;//是否有参数
-			bool get_bool(const string& opt);
-			int get_int(const string& opt);
-			string get_string(const string& opt);
+
+			//bool get_bool(const string& opt);
+			//int get_int(const string& opt);
+			//string get_string(const string& opt);
+			Value get(const string& opt);
 		private:
 			std::map<string, Type> m_opts;//name,type
 			std::map<string, string> m_args;//name,value

@@ -161,29 +161,54 @@ bool Option::has(const string& opt) const
 	return m_args.find(opt) != m_args.end();
 }
 
-bool Option::get_bool(const string& opt)
+Value Option::get(const string& opt)
 {
-	return m_args.find(opt) != m_args.end();
-};
-int Option::get_int(const string& opt)
-{
-	auto it=m_args.find(opt);
-	if (it == m_args.end())
+	auto it = m_opts.find(opt);
+	if (it == m_opts.end())
 	{
-		return 0;
+		return Value("");
 	}
-	int value = 0;
-	std::stringstream ss;
-	ss << it->second;
-	ss >> value;
-	return value;
-};
-string Option::get_string(const string& opt)
-{
-	auto it = m_args.find(opt);
-	if (it == m_args.end())
+	switch (it->second)
 	{
-		return "";
+		case OPT_NO:
+		{
+			return Value(m_args.find(opt) != m_args.end());
+	
+		}
+		case OPT_OPTIONAL:
+		case OPT_REQUIRED:
+		{
+			return Value(m_args[opt]);
+		}
+		default:
+			break;
 	}
-	return it->second;
-};
+	
+}
+
+//bool Option::get_bool(const string& opt)
+//{
+//	return m_args.find(opt) != m_args.end();
+//};
+//int Option::get_int(const string& opt)
+//{
+//	auto it=m_args.find(opt);
+//	if (it == m_args.end())
+//	{
+//		return 0;
+//	}
+//	int value = 0;
+//	std::stringstream ss;
+//	ss << it->second;
+//	ss >> value;
+//	return value;
+//};
+//string Option::get_string(const string& opt)
+//{
+//	auto it = m_args.find(opt);
+//	if (it == m_args.end())
+//	{
+//		return "";
+//	}
+//	return it->second;
+//};
