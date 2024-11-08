@@ -4,23 +4,23 @@ const char* Logger::s_level[LOG_COUNT] = {
 	"DEBUG","INFO","WARN","ERROR","FATAL"
 };
 
-Logger* Logger::m_instance = nullptr;//main函数运行前静态变量初始化 静态变量存储在进程静态数据区
+//Logger* Logger::m_instance = nullptr;//main函数运行前静态变量初始化 静态变量存储在进程静态数据区
 
-Logger::Logger():m_level(LOG_DEBUG),m_max(0),m_console(0)
-{
-};
-Logger::~Logger()
-{
-	close();
-}
-Logger* Logger::instance()
-{
-	if (m_instance == nullptr)
-	{
-		m_instance = new Logger();
-	}
-	return m_instance;
- };
+//Logger::Logger():m_level(LOG_DEBUG),m_max(0),m_console(0)
+//{
+//};
+//Logger::~Logger()
+//{
+//	close();
+//}
+//Logger* Logger::instance()
+//{
+//	if (m_instance == nullptr)
+//	{
+//		m_instance = new Logger();
+//	}
+//	return m_instance;
+// };
 void Logger::open(const string& filename)
 {
 	m_filename = filename;

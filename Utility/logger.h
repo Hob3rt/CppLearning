@@ -5,6 +5,7 @@
 #include <string>
 #include <ctime>//time.h也行
 #include <cstdarg>
+#include "singleton.h"
 #ifdef WIN32
 #include <windows.h>
 #else
@@ -16,17 +17,18 @@ namespace hobert
 	namespace utility
 	{
 		#define log_debug(format,...)\
-			Logger::instance()->log(Logger::LOG_DEBUG,__FILE__,__LINE__,format,##__VA_ARGS__)
+			Singleton<Logger>::instance()->log(Logger::LOG_DEBUG,__FILE__,__LINE__,format,##__VA_ARGS__)
 		#define log_info(format,...)\
-			Logger::instance()->log(Logger::LOG_INFO,__FILE__,__LINE__,format,##__VA_ARGS__)
+			Singleton<Logger>::instance()->log(Logger::LOG_INFO,__FILE__,__LINE__,format,##__VA_ARGS__)
 		#define log_warn(format,...)\
-			Logger::instance()->log(Logger::LOG_WARN,__FILE__,__LINE__,format,##__VA_ARGS__)
+			Singleton<Logger>::instance()->log(Logger::LOG_WARN,__FILE__,__LINE__,format,##__VA_ARGS__)
 		#define log_error(format,...)\
-			Logger::instance()->log(Logger::LOG_ERROR,__FILE__,__LINE__,format,##__VA_ARGS__)
+			Singleton<Logger>::instance()->log(Logger::LOG_ERROR,__FILE__,__LINE__,format,##__VA_ARGS__)
 		#define log_fatal(format,...)\
-			Logger::instance()->log(Logger::LOG_FATAL,__FILE__,__LINE__,format,##__VA_ARGS__)
+			Singleton<Logger>::instance()->log(Logger::LOG_FATAL,__FILE__,__LINE__,format,##__VA_ARGS__)
 		class Logger
 		{
+			SINGLETON(Logger);
 		public:
 			enum Level
 			{
@@ -39,7 +41,7 @@ namespace hobert
 			};
 			
 
-			static Logger* instance();//静态方法获取指针
+			//static Logger* instance();//静态方法获取指针
 			void open(const string& filename);
 			void close();
 			void log(Level level, const char* file, int line, const char* format, ...);
@@ -48,8 +50,8 @@ namespace hobert
 			void set_max_size(int size);
 			void set_console(bool console);
 		private:
-			Logger();//单例模式下将构造、析构函数申明为私有 不允许 Logger log;的实例化对象
-			~Logger();
+			//Logger();//单例模式下将构造、析构函数申明为私有 不允许 Logger log;的实例化对象
+			//~Logger();
 			void rotate();//日志翻滚
 			void sleep(int milliseconds);
 			void localtime(struct tm* time_info, const time_t* ticks);
@@ -58,13 +60,13 @@ namespace hobert
 		private:
 			string m_filename;
 			std::ofstream m_ofs;
-			int m_max;//日志文件大小
-			int m_len;//
-			int m_level;
-			bool m_console;//是否在控制台打印
+			int m_max = 0;//日志文件大小
+			int m_len = 0;//
+			int m_level = LOG_DEBUG;
+			bool m_console = TRUE;//是否在控制台打印
 			static const char* s_level[LOG_COUNT];//创建存储level个数的数组
 
-			static Logger* m_instance;//单例 静态成员指针
+			//static Logger* m_instance;//单例 静态成员指针
 		};
 	}
 }

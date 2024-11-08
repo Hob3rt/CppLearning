@@ -1,4 +1,4 @@
-﻿// CppLearning.cpp : Defines the entry point for the application.
+// CppLearning.cpp : Defines the entry point for the application.
 
 #include <iostream>
 #include "test/a.h"
