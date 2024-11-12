@@ -1,4 +1,4 @@
-﻿// CppLearning.cpp : Defines the entry point for the application.
+// CppLearning.cpp : Defines the entry point for the application.
 
 #include <iostream>
 #include <vector>
@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 	v.push_back(3);
 	v.show();
 	v.insert(v.begin(), 2, 33);
-	v.erase(v.begin()+2);
+	v.erase(v.begin() + 2);
 	v.show();
 	return 0;
 }
