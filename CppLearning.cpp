@@ -1,18 +1,15 @@
 ﻿// CppLearning.cpp : Defines the entry point for the application.
 
 #include <iostream>
-#include <vector>
-#include "stl/vector.h"
-using namespace hobert::stl;
+#include "Utility/time.h"
+using namespace hobert::utility;
 int main(int argc, char* argv[])
 {
-	Vector<int> v;
-	v.push_back(1);
-	v.push_back(2);
-	v.push_back(3);
-	v.show();
-	v.insert(v.begin(), 2, 33);
-	v.erase(v.begin()+2);
-	v.show();
+	Time t;
+
+	t.show();
+
+	std::cout << "sec:" << t.seconds() << ", milliseconds:" << t.milliseconds() << std::endl;
+	std::cout << t.format("%Y-%m-%d %H:%M:%S") << std::endl;
 	return 0;
 }
